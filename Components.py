@@ -29,20 +29,6 @@ class Component(object):
     """
     Base class for components
     """
-    # TODO - possibly remove this list
-    """TYPES = \
-    [
-        'COMPONENT',
-        'TIMER',
-        'COUNTER',
-        'GPIO_BASE',
-        'DIGITAL_INPUT',
-        'DIGITAL_OUTPUT',
-        'ANALOG_INPUT',
-        'MEDIA_PLAYER',
-        'SIMPLE_AUDIO_PLAYER',
-        'SIMPLE_VIDEO_PLAYER'
-    ]"""
 
     COMPONENT_TYPE = 'COMPONENT'
 
