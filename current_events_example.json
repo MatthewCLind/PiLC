@@ -1,0 +1,112 @@
+[
+    {
+        "CONDITIONS":
+        [
+            {
+                "METHOD": "equal_to", 
+                "VALUE": "PRESSED", 
+                "LABEL": "din_1"
+            }
+        ],
+
+        "EFFECTS":
+        [
+            {
+                "ARG": 1, 
+                "METHOD": "increase_value", 
+                "LABEL": "c1"
+            }
+        ],
+
+        "LABEL": "count_presses"
+    }, 
+    {
+        "DEACTIVATE":
+        [
+            {
+                "METHOD": "greater_than", 
+                "VALUE": 20.0, 
+                "LABEL": "t1"
+            }
+        ],
+
+        "CONDITIONS":
+        [
+            {
+                "METHOD": "greater_than", 
+                "VALUE": 25.0, 
+                "LABEL": "anin_1"
+            }
+        ],
+
+        "EFFECTS":
+        [
+            {
+                "ARG": "RUNNING", 
+                "METHOD": "set_state", 
+                "LABEL": "t1"
+            }
+        ],
+
+        "LABEL": "high_time_run"
+    }, 
+    {
+        "DEACTIVATE":
+        [
+            {
+                "METHOD": "greater_than", 
+                "VALUE": 20.0, 
+                "LABEL": "t1"
+            }
+        ],
+
+        "CONDITIONS":
+        [
+            {
+                "METHOD": "less_than", 
+                "VALUE": 25.0, 
+                "LABEL": "anin_1"
+            }
+        ],
+
+        "EFFECTS":
+        [
+            {
+                "ARG": "PAUSED", 
+                "METHOD": "set_state", 
+                "LABEL": "t1"
+            }
+        ],
+
+        "LABEL": "high_time_stop"
+    }, 
+    {
+        "DEACTIVATE":
+        [
+            {
+                "METHOD": "greater_than", 
+                "VALUE": 20.0, 
+                "LABEL": "t1"
+            }
+        ],
+
+        "CONDITIONS":
+        [
+            {
+                "METHOD": "greater_than", 
+                "VALUE": 20.0, 
+                "LABEL": "t1"
+            }
+        ],
+
+        "EFFECTS":
+        [
+            {
+                "ARG": null, 
+                "METHOD": "play", 
+                "LABEL": "vid_1"
+            }
+        ], 
+        "LABEL": "high_time"
+    }
+]
