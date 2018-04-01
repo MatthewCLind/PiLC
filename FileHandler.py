@@ -38,6 +38,7 @@ def _save_dict(filename, data):
 
 def _create_events_definition(current_events):
     """
+    Private function
     Puts together a list of save-able event definitions
     :type current_events: list[Event]
     :rtype: list
@@ -53,6 +54,7 @@ def _create_events_definition(current_events):
 
 def _create_components_definition(current_comps):
     """
+    Private function
     Puts together a list of save-able component definitions
     :type current_comps: list[Component]
     :rtype: dict
