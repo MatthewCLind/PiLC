@@ -7,7 +7,7 @@ all_events = FileHandler.load_events_definition(all_components)
 
 # or wait for the first data from the client
 while all_components is None or all_events is None:
-    all_components = FileHandler.load_client_updates(all_components)
+    all_components, all_events = FileHandler.load_client_updates(all_components)
 
 # live_feed.json, current_components.json, and current_events.json are all temp files
 # they must be loaded when Main begins
@@ -55,6 +55,7 @@ while True:
         next_live_feed = time.time() + LIVE_FEED_PERIOD
 
     # And now, for the event you've all been waiting for!
+    # This is where stuff actually happens
     try:
         for event in all_events:
             event.evaluate()
