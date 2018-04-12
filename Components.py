@@ -1,5 +1,6 @@
 import time
 import json
+import requests
 
 # http://python-omxplayer-wrapper.readthedocs.io/en/latest/
 # pip install omxplayer-wrapper
@@ -62,6 +63,7 @@ class Component(object):
         return 'repr of ' + self.COMPONENT_TYPE
 
     def get_value(self):
+        self.update()
         return self.value
 
     def get_label(self):
@@ -115,6 +117,80 @@ class Component(object):
         else:
             comparison = method()
         return comparison
+
+
+class URIComponent(Component):
+    """
+    Class for reading and writing to files/urls
+    """
+
+    COMPONENT_TYPE = 'URI_COMPONENT'
+
+    def __init__(self, label, uri):
+        super(URIComponent, self).__init__(label, '')
+        self.uri = uri
+        self.condition_methods['key_in_value'] = self.key_in_value
+
+    def key_in_value(self, keyword):
+        """
+        Looks for a keyword in the current value
+        :param keyword: the keyword to look for
+        :type keyword: str
+        """
+        return keyword in self.value
+
+
+class WebGet(URIComponent):
+    """
+    Class that reads data from a URL
+    Think of it like curl or wget
+    """
+    def __init__(self, label, url):
+        super(WebGet, self).__init__(label, url)
+        self.effect_methods['web_get'] = self.web_get
+
+    def web_get(self):
+        self.set_value(requests.get(self.uri))
+
+
+class WebPost(URIComponent):
+    """
+    Class that posts data to a URL
+    Think of it like curl or wget
+    """
+    def __init__(self, label, url):
+        super(WebPost, self).__init__(label, url)
+
+    def web_post(self, data):
+        requests.post(self.uri, data)
+
+
+class FileQueue(URIComponent):
+    """
+    Class for reading in commands or strings from a file
+    Especially useful for receiving communications through the web
+
+    Messages are separated by newlines
+    First-in-first-out queue
+    Oldest messages at top of file
+    """
+
+    COMPONENT_TYPE = 'FILE_QUEUE'
+
+    def __init__(self, label, file_name):
+        super(FileQueue, self).__init__(label, file_name)
+
+    def update(self):
+        """
+        Reads the top line from the file.
+        If the file is empty (or basically empty), hold on to the previous command
+        """
+        with open(self.uri, 'rw') as f:
+            all_commands = f.read()
+            if all_commands != '' or all_commands != '\n':
+                command_list = all_commands.split('\n')
+                self.set_value(command_list[0])
+                f.write('\n'.join(command_list[1:]))
 
 
 class NumericalComponent(Component):
