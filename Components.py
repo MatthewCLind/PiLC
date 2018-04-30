@@ -524,6 +524,7 @@ class PWMOutput(GPIOBase):
         self.channel = self.GPIO_PINS[gpio_pin]
         gpio.setup(self.channel, gpio.OUT, initial=gpio.LOW)
         self.pwm_controller = gpio.PWM(self.channel, 200)
+        self.set_value(0)
 
     def set_value(self, duty_cycle):
         """
@@ -533,12 +534,14 @@ class PWMOutput(GPIOBase):
         """
         self.pwm_controller.ChangeDutyCycle(duty_cycle)
 
-    def start(self):
+    def start(self, inital_dutycycle=0):
         """
         Starts the PWM signal
         Must be called before the output will function
+        :param inital_dutycycle: sets the initial duty cycle when first started
+        :type inital_dutycycle: int
         """
-        self.pwm_controller.start()
+        self.pwm_controller.start(inital_dutycycle)
 
     def stop(self):
         """
