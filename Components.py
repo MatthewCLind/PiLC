@@ -501,6 +501,53 @@ class DigitalOutput(GPIOBase):
         return self.get_value()
 
 
+class PWMOutput(GPIOBase):
+    """
+    Class for using software-defined PWM with the SSRs
+    """
+
+    COMPONENT_TYPE = 'PWM_OUTPUT'
+
+    # BCM pins, same as DigitalOutput
+    GPIO_PINS = [26, 13, 19, 12, 6, 5, 11, 9, 10, 22]
+
+    def __init__(self, label, gpio_pin):
+        """
+        :param gpio_pin: Provide 1 - 10 to correspond with the PCB
+        :type gpio_pin: int
+        """
+        # take one off to convert from counting numbers to index
+        gpio_pin -= 1
+        super(PWMOutput, self).__init__(label, gpio_pin)
+        self.effect_methods['start'] = self.start
+        self.effect_methods['stop'] = self.stop
+        self.channel = self.GPIO_PINS[gpio_pin]
+        gpio.setup(self.channel, gpio.OUT, initial=gpio.LOW)
+        self.pwm_controller = gpio.PWM(self.channel, 200)
+
+    def set_value(self, duty_cycle):
+        """
+        Changes the duty cycle of the PWM signal
+        :param duty_cycle: new duty cycle expressed as percentage (1-100)
+        :type duty_cycle: int
+        """
+        self.pwm_controller.ChangeDutyCycle(duty_cycle)
+
+    def start(self):
+        """
+        Starts the PWM signal
+        Must be called before the output will function
+        """
+        self.pwm_controller.start()
+
+    def stop(self):
+        """
+        Stops the PWM signal
+        Use set_value(0) for intermediate "off", and stop() to free up processor
+        """
+        self.pwm_controller.stop()
+
+
 class MediaPlayer(Component):
     """
     Bass class for Media Playing objects
