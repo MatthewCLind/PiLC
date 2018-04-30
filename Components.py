@@ -409,6 +409,7 @@ class DigitalInput(GPIOBase):
     GPIO_PINS = [7, 8, 25, 24, 16, 18]
 
     def __init__(self, label, gpio_pin):
+        gpio_pin -= 1  # counting numbers to index
         super(DigitalInput, self).__init__(label, gpio_pin)
         self.channel = self.GPIO_PINS[gpio_pin]
 
@@ -420,7 +421,7 @@ class DigitalInput(GPIOBase):
         # gpio.LOW means +12v is applied across input
 
         pin_state = gpio.input(self.channel)
-        new_val = ''
+        new_val = self.get_value()
 
         # steady on
         if pin_state == gpio.LOW and (self.value == 'PRESSED' or self.value == 'HELD_DOWN'):
@@ -438,7 +439,7 @@ class DigitalInput(GPIOBase):
         elif pin_state == gpio.HIGH:
             new_val = 'HELD_UP'
 
-        self.set_value(new_val)
+        super(DigitalInput, self).set_value(new_val)
 
     def set_value(self, value):
         # you don't get to dictate the value of the input
