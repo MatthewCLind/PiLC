@@ -63,7 +63,6 @@ class Component(object):
         return 'repr of ' + self.COMPONENT_TYPE
 
     def get_value(self):
-        self.update()
         return self.value
 
     def get_label(self):
@@ -421,7 +420,7 @@ class DigitalInput(GPIOBase):
         # gpio.LOW means +12v is applied across input
 
         pin_state = gpio.input(self.channel)
-        new_val = self.get_value()
+        new_val = self.value
 
         # steady on
         if pin_state == gpio.LOW and (self.value == 'PRESSED' or self.value == 'HELD_DOWN'):
