@@ -102,7 +102,7 @@ def load_client_updates(all_components):
     :type all_components: [Component]
     :return: [Component], [Event] or None if there's nothing new
     """
-    updates_dict = _load_object_from_json('client_updates.json')
+    updates_dict = _load_object_from_json('../Front End/json-server-api/db.json')
 
     new_events = None
     new_comps = None

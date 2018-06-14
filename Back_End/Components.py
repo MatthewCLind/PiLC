@@ -1,25 +1,24 @@
-import time
 import json
+import time
+
 import requests
-
-# http://python-omxplayer-wrapper.readthedocs.io/en/latest/
-# pip install omxplayer-wrapper
-import omxplayer
-from omxplayer.player import OMXPlayer as OMX
-
-# should come pre-installed on RPi
-import pygame
 
 # https://github.com/adafruit/Adafruit_Python_MCP3008
 # sudo pip install adafruit-mcp3008
 import Adafruit_MCP3008
+# http://python-omxplayer-wrapper.readthedocs.io/en/latest/
+# pip install omxplayer-wrapper
+import omxplayer
+# should come pre-installed on RPi
+import pygame
+from omxplayer.player import OMXPlayer as OMX
 
 # https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/
 # pip install RPi.GPIO
 # I think only one instance of RPi.GPIO can be instantiated per machine
 # so make sure you don't have another script running this if you get errors
 try:
-    import RPi.GPIO as gpio
+    import RPi.GPIO as GPIO
 except RuntimeError:
     print('Error importing RPi.GPIO!  ' +
           'This is probably because you need superuser privileges.' +
@@ -414,28 +413,28 @@ class DigitalInput(GPIOBase):
 
         # pull_up_down=gpio.PUD_UP specifies to use the built-in pull up resistor
         # this means that a value of gpio.LOW corresponds with +12v across the input
-        gpio.setup(self.channel, gpio.IN, pull_up_down=gpio.PUD_UP)
+        GPIO.setup(self.channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def update(self):
         # gpio.LOW means +12v is applied across input
 
-        pin_state = gpio.input(self.channel)
+        pin_state = GPIO.input(self.channel)
         new_val = self.value
 
         # steady on
-        if pin_state == gpio.LOW and (self.value == 'PRESSED' or self.value == 'HELD_DOWN'):
+        if pin_state == GPIO.LOW and (self.value == 'PRESSED' or self.value == 'HELD_DOWN'):
             new_val = 'HELD_DOWN'
 
         # analogous to rising edge
-        elif pin_state == gpio.LOW and (self.value == 'RELEASED' or self.value == 'HELD_UP'):
+        elif pin_state == GPIO.LOW and (self.value == 'RELEASED' or self.value == 'HELD_UP'):
             new_val = 'PRESSED'
 
         # analogous to falling edge
-        elif pin_state == gpio.HIGH and (self.value == 'PRESSED' or self.value == 'HELD_DOWN'):
+        elif pin_state == GPIO.HIGH and (self.value == 'PRESSED' or self.value == 'HELD_DOWN'):
             new_val = 'RELEASED'
 
         # steady off
-        elif pin_state == gpio.HIGH:
+        elif pin_state == GPIO.HIGH:
             new_val = 'HELD_UP'
 
         super(DigitalInput, self).set_value(new_val)
@@ -473,7 +472,7 @@ class DigitalOutput(GPIOBase):
 
         self.effect_methods['toggle'] = self.toggle_value
         self.channel = self.GPIO_PINS[gpio_pin]
-        gpio.setup(self.channel, gpio.OUT, initial=gpio.LOW)
+        GPIO.setup(self.channel, GPIO.OUT, initial=GPIO.LOW)
 
     def set_value(self, new_state):
         """
@@ -483,9 +482,9 @@ class DigitalOutput(GPIOBase):
         """
         super(DigitalOutput, self).set_value(new_state)
         if self.value == 'HIGH':
-            gpio.output(self.channel, gpio.HIGH)
+            GPIO.output(self.channel, GPIO.HIGH)
         elif self.value == 'LOW':
-            gpio.output(self.channel, gpio.LOW)
+            GPIO.output(self.channel, GPIO.LOW)
 
     def toggle_value(self):
         """
@@ -522,8 +521,8 @@ class PWMOutput(GPIOBase):
         self.effect_methods['start'] = self.start
         self.effect_methods['stop'] = self.stop
         self.channel = self.GPIO_PINS[gpio_pin]
-        gpio.setup(self.channel, gpio.OUT, initial=gpio.LOW)
-        self.pwm_controller = gpio.PWM(self.channel, 200)
+        GPIO.setup(self.channel, GPIO.OUT, initial=GPIO.LOW)
+        self.pwm_controller = GPIO.PWM(self.channel, 200)
         self.set_value(0)
 
     def set_value(self, duty_cycle):

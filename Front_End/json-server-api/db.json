@@ -1,0 +1,232 @@
+{
+  "dataComponents": {},
+  "dataEvents": [
+    {
+      "COMPONENTS": {
+        "Video Player": [
+          {
+            "inputOne": "this is a test component",
+            "inputTwo": "this/is/a/test/path"
+          }
+        ]
+      },
+      "EVENTS": [
+        {
+          "LABEL": "j",
+          "Effects": [
+            {
+              "inputOne": "this is a test component",
+              "inputTwo": "Stop"
+            }
+          ]
+        },
+        {
+          "LABEL": "hh",
+          "Conditions": [],
+          "Effects": [
+            {
+              "inputOne": "this is a test component",
+              "inputTwo": "Play"
+            }
+          ]
+        }
+      ],
+      "id": 1
+    }
+  ],
+  "events": [
+    [
+      {
+        "sectionName": "Conditions",
+        "headerRow": {
+          "name": "Component",
+          "check": "Check",
+          "value": "Value"
+        },
+        "inputdata": [
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          }
+        ]
+      },
+      {
+        "sectionName": "Effects",
+        "headerRow": {
+          "name": "Component",
+          "check": "Change",
+          "value": "Value"
+        },
+        "inputdata": [
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          }
+        ]
+      },
+      {
+        "sectionName": "Activate",
+        "headerRow": {
+          "name": "Component",
+          "check": "Check",
+          "value": "Value"
+        },
+        "inputdata": [
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          }
+        ]
+      },
+      {
+        "sectionName": "Deactivate",
+        "headerRow": {
+          "name": "Component",
+          "check": "Check",
+          "value": "Value"
+        },
+        "inputdata": [
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          },
+          {
+            "name": "select"
+          }
+        ]
+      }
+    ]
+  ],
+  "components": [
+    [
+      {
+        "sectionName": "Digital Inputs",
+        "headerRow": {
+          "name": "Label",
+          "input": "Channel Number"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "number",
+            "min": 1,
+            "max": 6
+          }
+        ]
+      },
+      {
+        "sectionName": "Analog Inputs",
+        "headerRow": {
+          "name": "Label",
+          "input": "Channel Number"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "number",
+            "min": 1,
+            "max": 4
+          }
+        ]
+      },
+      {
+        "sectionName": "Digital Outputs",
+        "headerRow": {
+          "name": "Label",
+          "input": "Output Number"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "number",
+            "min": 1,
+            "max": 10
+          }
+        ]
+      },
+      {
+        "sectionName": "Counters",
+        "headerRow": {
+          "name": "Label",
+          "input": "Initial Count"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "number"
+          }
+        ]
+      },
+      {
+        "sectionName": "Timers",
+        "headerRow": {
+          "name": "Label",
+          "input": "Initial Time"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "timer"
+          }
+        ]
+      },
+      {
+        "sectionName": "Video Player",
+        "headerRow": {
+          "name": "Label",
+          "input": "File Path (Absolute or Relative)"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "input"
+          }
+        ]
+      },
+      {
+        "sectionName": "Audio Player",
+        "headerRow": {
+          "name": "Label",
+          "input": "File Path (Absolute or Relative)"
+        },
+        "inputdata": [
+          {
+            "name": "input"
+          },
+          {
+            "name": "input"
+          }
+        ]
+      }
+    ]
+  ]
+}
